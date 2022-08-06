@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
@@ -31,8 +32,38 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $user = $this->userService->create($request->validated());
+        $this->userService->create($request->validated());
 
-        dd($user);
+        return redirect()->route('admin.users.index');
+    }
+
+    public function edit(string $id)
+    {
+        $user = $this->userService->findById($id);
+
+        if (is_null($user)) {
+            return redirect()->back();
+        }
+
+        return view('admin.users.edit', compact('user'));
+    }
+
+    public function update(UpdateUserRequest $request, string $id)
+    {
+        $data = $request->only('email', 'name');
+
+        if ($request->password) {
+            $data['password'] = $request->password;
+        }
+
+        $user = $this->userService->findById($id);
+
+        if (is_null($user)) {
+            return redirect()->back();
+        }
+
+        $this->userService->update($id, $data);
+
+        return redirect()->route('admin.users.index');
     }
 }

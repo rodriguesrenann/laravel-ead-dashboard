@@ -30,7 +30,7 @@ class UserRepository implements UserRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update(string $id, array $data): object
+    public function update(string $id, array $data): bool
     {
         return $this->model->where('id', $id)->update($data);
     }

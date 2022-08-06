@@ -62,6 +62,10 @@ class UserService
                 throw new ModelNotFoundException("Usuário não encontrado");
             }
 
+            if (isset($data['password'])) {
+                $data['password'] = Hash::make($data['password']);
+            }
+
             $user = $this->repository->update($user->id, $data);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
