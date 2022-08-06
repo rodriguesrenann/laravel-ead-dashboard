@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\UserRepositoryInterface;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {

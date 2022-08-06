@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
@@ -16,7 +15,7 @@ class UserRepository implements UserRepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll(): Collection
+    public function getAll(): object
     {
         return $this->model->get();
     }
