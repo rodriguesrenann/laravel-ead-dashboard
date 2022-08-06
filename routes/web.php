@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AdminController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+    Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
 });
 

@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="text-3xl text-black pb-6">
         Usuários
-        <a href="http://"
+        <a href="{{ route('admin.users.create') }}"
             class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
             <i class="fas fa-plus"></i>
         </a>

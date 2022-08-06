@@ -4,13 +4,13 @@ return [
     'menus' => [
         [
             'name' => 'Home',
-            'url' => 'admin/home',
+            'url' => '/admin',
             'icon' => 'fas fa-tachometer-alt'
         ],
         [
-            'name' => 'Listagem',
-            'url' => 'admin/list',
-            'icon' => 'fas fa-align-left'
+            'name' => 'Usuários',
+            'url' => '/admin/users',
+            'icon' => 'fas fa-users'
         ],
         [
             'name' => 'Formulários',

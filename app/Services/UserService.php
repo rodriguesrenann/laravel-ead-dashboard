@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -40,6 +41,7 @@ class UserService
     {
         DB::beginTransaction();
         try {
+            $data['password'] = Hash::make($data['password']);
             $user = $this->repository->create($data);
         } catch (\Exception $e) {
             DB::rollBack();
