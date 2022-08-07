@@ -7,6 +7,7 @@ use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
+use App\Services\FileService;
 
 class UserController extends Controller
 {
@@ -63,6 +64,32 @@ class UserController extends Controller
         }
 
         $this->userService->update($id, $data);
+
+        return redirect()->route('admin.users.index');
+    }
+
+    public function changeImage(string $id)
+    {
+        $user = $this->userService->findById($id);
+
+        if (is_null($user)) {
+            return redirect()->back();
+        }
+
+        return view('admin.users.update-image', compact('user'));
+    }
+
+    public function updateImage(Request $request, FileService $fileService, string $id)
+    {
+        $user = $this->userService->findById($id);
+
+        if (is_null($user)) {
+            return redirect()->back();
+        }
+
+        $path = $fileService->store($request->file);
+
+        $this->userService->update($id, ['photo' => $path]);
 
         return redirect()->route('admin.users.index');
     }
