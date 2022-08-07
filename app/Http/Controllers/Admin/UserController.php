@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Services\UserService;
+use App\Services\FileService;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\ImageRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\UserRequest;
-use App\Services\FileService;
 
 class UserController extends Controller
 {
@@ -79,7 +79,7 @@ class UserController extends Controller
         return view('admin.users.update-image', compact('user'));
     }
 
-    public function updateImage(Request $request, FileService $fileService, string $id)
+    public function updateImage(ImageRequest $request, FileService $fileService, string $id)
     {
         $user = $this->userService->findById($id);
 
