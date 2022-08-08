@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\UuidTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,11 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use UuidTrait, HasFactory, Notifiable;
+
+    public $incrementing = false;
+
+    protected $keyType = 'uuid';
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +24,7 @@ class Admin extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'photo',
         'password',
     ];
 

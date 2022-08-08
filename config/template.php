@@ -13,6 +13,11 @@ return [
             'icon' => 'fas fa-users'
         ],
         [
+            'name' => 'Administradores',
+            'url' => '/admin/admins',
+            'icon' => 'fas fa-robot'
+        ],
+        [
             'name' => 'Formulários',
             'url' => 'admin/forms',
             'icon' => 'fas fa-table'
