@@ -3,10 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
 
 Route::prefix('admin')->group(function () {
 
+
+    /**
+     * Rotas cursos
+     */
+    Route::resource('/courses', CourseController::class);
 
     /**
      * Rotas para admins

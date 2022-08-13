@@ -18,6 +18,11 @@ return [
             'icon' => 'fas fa-robot'
         ],
         [
+            'name' => 'Cursos',
+            'url' => '/admin/courses',
+            'icon' => 'fas fa-video'
+        ],
+        [
             'name' => 'Formulários',
             'url' => 'admin/forms',
             'icon' => 'fas fa-table'
