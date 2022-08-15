@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\ImageRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -38,18 +39,12 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        $user = $this->userService->findById($id);
-
-        if (is_null($user)) {
-            return redirect()->back();
-        }
-
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->only('email', 'name');
 
@@ -57,39 +52,21 @@ class UserController extends Controller
             $data['password'] = $request->password;
         }
 
-        $user = $this->userService->findById($id);
-
-        if (is_null($user)) {
-            return redirect()->back();
-        }
-
-        $this->userService->update($id, $data);
+        $this->userService->update($user, $data);
 
         return redirect()->route('admin.users.index');
     }
 
-    public function changeImage(string $id)
+    public function changeImage(User $user)
     {
-        $user = $this->userService->findById($id);
-
-        if (is_null($user)) {
-            return redirect()->back();
-        }
-
         return view('admin.users.update-image', compact('user'));
     }
 
-    public function updateImage(ImageRequest $request, FileService $fileService, string $id)
+    public function updateImage(ImageRequest $request, FileService $fileService, User $user)
     {
-        $user = $this->userService->findById($id);
-
-        if (is_null($user)) {
-            return redirect()->back();
-        }
-
         $path = $fileService->store($request->file);
 
-        $this->userService->update($id, ['photo' => $path]);
+        $this->userService->update($user, ['photo' => $path]);
 
         return redirect()->route('admin.users.index');
     }

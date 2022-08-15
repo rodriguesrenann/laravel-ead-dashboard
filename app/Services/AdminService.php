@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Admin;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -51,17 +52,10 @@ class AdminService
         return $admin;
     }
 
-    public function update(string $id, array $data)
+    public function update(Admin $admin, array $data)
     {
         DB::beginTransaction();
         try {
-            $admin = $this->findById($id);
-
-            if (is_null($admin)) {
-                DB::rollBack();
-                throw new ModelNotFoundException("Usuário não encontrado");
-            }
-
             if (isset($data['password'])) {
                 $data['password'] = Hash::make($data['password']);
             }

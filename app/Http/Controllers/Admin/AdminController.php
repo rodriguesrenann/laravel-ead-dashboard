@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
 use App\Services\AdminService;
 use App\Services\FileService;
 use App\Http\Requests\AdminRequest;
@@ -38,29 +39,17 @@ class AdminController extends Controller
         return redirect()->route('admins.index');
     }
 
-    public function show($id)
+    public function show(Admin $admin)
     {
-        $admin = $this->adminService->findById($id);
-
-        if (is_null($admin)) {
-            return redirect()->back();
-        }
-
         return view('admin.admins.show', compact('admin'));
     }
 
-    public function edit(string $id)
+    public function edit(Admin $admin)
     {
-        $admin = $this->adminService->findById($id);
-
-        if (is_null($admin)) {
-            return redirect()->back();
-        }
-
         return view('admin.admins.edit', compact('admin'));
     }
 
-    public function update(UpdateAdminRequest $request, string $id)
+    public function update(UpdateAdminRequest $request, Admin $admin)
     {
         $data = $request->only('email', 'name');
 
@@ -68,39 +57,21 @@ class AdminController extends Controller
             $data['password'] = $request->password;
         }
 
-        $admin = $this->adminService->findById($id);
-
-        if (is_null($admin)) {
-            return redirect()->back();
-        }
-
-        $this->adminService->update($id, $data);
+        $this->adminService->update($admin, $data);
 
         return redirect()->route('admins.index');
     }
 
-    public function changeImage(string $id)
+    public function changeImage(Admin $admin)
     {
-        $admin = $this->adminService->findById($id);
-
-        if (is_null($admin)) {
-            return redirect()->back();
-        }
-
         return view('admin.admins.update-image', compact('admin'));
     }
 
-    public function updateImage(ImageRequest $request, FileService $fileService, string $id)
+    public function updateImage(ImageRequest $request, FileService $fileService, Admin $admin)
     {
-        $admin = $this->adminService->findById($id);
-
-        if (is_null($admin)) {
-            return redirect()->back();
-        }
-
         $path = $fileService->store($request->file);
 
-        $this->adminService->update($id, ['photo' => $path]);
+        $this->adminService->update($admin, ['photo' => $path]);
 
         return redirect()->route('admins.index');
     }

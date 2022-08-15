@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\UserRepositoryInterface;
@@ -51,16 +52,10 @@ class UserService
         return $user;
     }
 
-    public function update(string $id, array $data)
+    public function update(User $user, array $data)
     {
         DB::beginTransaction();
         try {
-            $user = $this->findById($id);
-
-            if (is_null($user)) {
-                DB::rollBack();
-                throw new ModelNotFoundException("Usuário não encontrado");
-            }
 
             if (isset($data['password'])) {
                 $data['password'] = Hash::make($data['password']);
