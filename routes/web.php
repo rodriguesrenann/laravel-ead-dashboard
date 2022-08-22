@@ -5,9 +5,15 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ModuleController;
 
 Route::prefix('admin')->group(function () {
 
+
+    /**
+     * Rotas de modulos
+     */
+    Route::resource('courses/{course}/modules', ModuleController::class);
 
     /**
      * Rotas cursos
