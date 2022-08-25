@@ -17,7 +17,10 @@ class ModuleRepository implements ModuleRepositoryInterface
 
     public function getAllByCourseId(string $courseId): object
     {
-        return $this->model->where('course_id', $courseId)->get();
+        return $this->model
+            ->where('course_id', $courseId)
+            ->with('course')
+            ->get();
     }
 
     public function findById(string $id): ?object
@@ -25,8 +28,9 @@ class ModuleRepository implements ModuleRepositoryInterface
         return $this->model->find($id);
     }
 
-    public function createByCourse(array $data): object
+    public function createByCourse(array $data, string $courseId): object
     {
+        $data['course_id'] = $courseId;
         return $this->model->create($data);
     }
 

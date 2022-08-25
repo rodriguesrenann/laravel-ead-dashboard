@@ -36,11 +36,11 @@ class ModuleService
         return $module;
     }
 
-    public function create(array $data)
+    public function create(array $data, string $courseId)
     {
         DB::beginTransaction();
         try {
-            $module = $this->repository->createByCourse($data);
+            $module = $this->repository->createByCourse($data, $courseId);
         } catch (\Exception $e) {
             DB::rollBack();
             throw new Exception($e->getMessage());
