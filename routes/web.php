@@ -3,12 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\LessonController;
+use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ModuleController;
 
 Route::prefix('admin')->group(function () {
 
+    /**
+     * Rotas de aulas
+     */
+    Route::resource('modules/{module}/lessons', LessonController::class);
 
     /**
      * Rotas de modulos

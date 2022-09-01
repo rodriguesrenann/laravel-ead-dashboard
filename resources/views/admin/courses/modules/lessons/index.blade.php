@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 
-@section('title', "Módulos do curso {$course->name}")
+@section('title', "Aulas do modulo {$module->name}")
 
 @section('content')
     <h1 class="text-3xl text-black pb-6">
-        Módulos do curso {{ $course->name }}
-        <a href="{{ route('modules.create', $course->id) }}"
+        Aulas do modulo {{ $module->name }}
+        <a href="{{ route('lessons.create', $module->id) }}"
             class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
             <i class="fas fa-plus"></i>
         </a>
@@ -21,8 +21,13 @@
                         </th>
                         <th
                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Descrição
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Data de criação
                         </th>
+
                         <th
                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Ações
@@ -34,24 +39,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($modules as $module)
+                    @forelse ($lessons as $lesson)
                         <tr>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <div class="flex items-center">
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        {{ $module->name }}
+                                        {{ $lesson->name }}
                                     </p>
                                 </div>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <div class="flex items-center">
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        {{ $module->created_at }}
+                                        {{ $lesson->description }}
                                     </p>
                                 </div>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <a href="{{ route('modules.show', [$course->id, $module->id]) }}">
+                                <div class="flex items-center">
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        {{ $lesson->created_at }}
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <a href="{{ route('lessons.show', [$module->id, $lesson->id]) }}">
                                     <span
                                         class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                         <span aria-hidden
@@ -59,7 +71,7 @@
                                         <span class="relative">Detalhes</span>
                                     </span>
                                 </a>
-                                <a href="{{ route('modules.edit', [$course->id, $module->id]) }}">
+                                <a href="{{ route('lessons.edit', [$module->id, $lesson->id]) }}">
                                     <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
                                         <span aria-hidden
                                             class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
@@ -67,19 +79,19 @@
                                     </span>
                                 </a>
 
-                                <a href="{{ route('lessons.index', $module->id) }}">
+                                {{-- <a href="{{ route('lessons.index', $module->id) }}">
                                     <span class="relative inline-block px-3 py-1 font-semibold text-blue-900 leading-tight">
                                         <span aria-hidden
                                             class="absolute inset-0 bg-blue-200 opacity-50 rounded-full"></span>
                                         <span class="relative">Aulas</span>
                                     </span>
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="1000">
-                                Sem nenhum módulo
+                                Sem nenhuma aula
                             </td>
                         </tr>
                     @endforelse
