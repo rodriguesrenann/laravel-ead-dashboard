@@ -10,11 +10,15 @@ use App\Repositories\CourseRepository;
 use App\Repositories\ModuleRepository;
 use App\Repositories\LessonRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\SupportRepository;
+use App\Repositories\SupportReplyRepository;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\AdminRepositoryInterface;
 use App\Repositories\Contracts\CourseRepositoryInterface;
 use App\Repositories\Contracts\LessonRepositoryInterface;
 use App\Repositories\Contracts\ModuleRepositoryInterface;
+use App\Repositories\Contracts\SupportRepositoryInterface;
+use App\Repositories\Contracts\SupportReplyRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,6 +48,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             LessonRepositoryInterface::class,
             LessonRepository::class
+        );
+        $this->app->bind(
+            SupportRepositoryInterface::class,
+            SupportRepository::class
+        );
+        $this->app->bind(
+            SupportReplyRepositoryInterface::class,
+            SupportReplyRepository::class
         );
     }
 

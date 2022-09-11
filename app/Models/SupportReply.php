@@ -6,7 +6,7 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class View extends Model
+class SupportReply extends Model
 {
     use UuidTrait;
     use HasFactory;
@@ -16,13 +16,24 @@ class View extends Model
     protected $keyType = 'uuid';
 
     protected $fillable = [
+        'support_id',
         'user_id',
-        'lesson_id',
-        'quantity'
+        'admin_id',
+        'description'
     ];
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function support()
+    {
+        return $this->belongsTo(Support::class);
     }
 }
