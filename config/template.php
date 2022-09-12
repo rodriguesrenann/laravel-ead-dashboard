@@ -27,6 +27,11 @@ return [
             'url' => 'admin/forms',
             'icon' => 'fas fa-table'
         ],
+        [
+            'name' => 'Suportes',
+            'url' => 'admin/supports',
+            'icon' => 'fas fa-headset'
+        ],
 
     ]
 ];

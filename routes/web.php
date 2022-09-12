@@ -3,12 +3,30 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CourseController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\ModuleController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\SupportController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SupportReplyController;
 
 Route::prefix('admin')->group(function () {
 
+    /**
+     * Reply support
+     */
+    Route::post('/reply', [SupportReplyController::class, 'store'])->name('replies.store');
+
+    /**
+     * Suportes
+     */
+    Route::get('/supports', [SupportController::class, 'index'])->name('supports.index');
+    Route::get('/supports/{support}', [SupportController::class, 'show'])->name('supports.show');
+
+    /**
+     * Rotas de aulas
+     */
+    Route::resource('modules/{module}/lessons', LessonController::class);
 
     /**
      * Rotas de modulos
@@ -43,3 +61,5 @@ Route::prefix('admin')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+require __DIR__ . '/auth.php';
