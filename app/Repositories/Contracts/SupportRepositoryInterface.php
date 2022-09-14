@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Contracts;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Presenters\Contracts\PresenterPaginationInterface;
 
 interface SupportRepositoryInterface
 {
-    public function getAllPendentSupportsPaginated(): LengthAwarePaginator;
+    public function getAllPendentSupportsPaginated(): PresenterPaginationInterface;
     public function findById(string $id): null|object;
 }

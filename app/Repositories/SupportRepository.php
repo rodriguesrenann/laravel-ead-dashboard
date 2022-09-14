@@ -3,7 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Support;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Presenters\Contracts\PresenterPaginationInterface;
+use App\Presenters\PaginationPresenter;
 use App\Repositories\Contracts\SupportRepositoryInterface;
 
 class SupportRepository implements SupportRepositoryInterface
@@ -15,11 +16,13 @@ class SupportRepository implements SupportRepositoryInterface
         $this->model = $model;
     }
 
-    public function getAllPendentSupportsPaginated(): LengthAwarePaginator
+    public function getAllPendentSupportsPaginated(): PresenterPaginationInterface
     {
-        return $this->model->where('status', 'P')
+        $supports = $this->model->where('status', 'P')
             ->with(['user', 'lesson'])
             ->paginate();
+
+        return new PaginationPresenter($supports);
     }
 
     public function findById(string $id): ?object

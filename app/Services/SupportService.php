@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Presenters\PaginationPresenter;
 use App\Repositories\Contracts\SupportRepositoryInterface;
 
 class SupportService
@@ -15,7 +15,7 @@ class SupportService
         $this->repository = $repository;
     }
 
-    public function getAllPendentSupportsPaginated(): LengthAwarePaginator
+    public function getAllPendentSupportsPaginated(): PaginationPresenter
     {
         return $this->repository->getAllPendentSupportsPaginated();
     }
