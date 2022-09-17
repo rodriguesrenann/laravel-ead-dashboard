@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\SupportReply;
 use App\Repositories\Contracts\SupportReplyRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class SupportReplyRepository implements SupportReplyRepositoryInterface
 {
@@ -16,7 +17,7 @@ class SupportReplyRepository implements SupportReplyRepositoryInterface
 
     public function create(array $data): object
     {
-        $data['admin_id'] = '49da60fb-c71b-4e3f-9d14-f508affaac0f';
+        $data['admin_id'] = Auth::user()->id;
         return $this->model->create($data);
     }
 }

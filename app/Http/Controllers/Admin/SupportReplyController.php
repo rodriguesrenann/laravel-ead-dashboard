@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\SupportReplied;
 use App\Http\Controllers\Controller;
 use App\Services\SupportReplyService;
 use App\Http\Requests\SupportReplyRequest;
@@ -17,7 +18,9 @@ class SupportReplyController extends Controller
 
     public function store(SupportReplyRequest $request)
     {
-        $this->supportReplyService->create($request->validated());
+        $supportReply = $this->supportReplyService->create($request->validated());
+
+        event(new SupportReplied($supportReply));
 
         return redirect()->back();
     }
