@@ -24,4 +24,9 @@ class SupportService
     {
         return $this->repository->findById($id);
     }
+
+    public function getFilteredSupports(string $status): object|null
+    {
+        return $this->repository->getFilteredSupports($status);
+    }
 }

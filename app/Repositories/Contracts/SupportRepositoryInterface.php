@@ -8,4 +8,5 @@ interface SupportRepositoryInterface
 {
     public function getAllPendentSupportsPaginated(): PresenterPaginationInterface;
     public function findById(string $id): null|object;
+    public function getFilteredSupports(string $status): PresenterPaginationInterface;
 }

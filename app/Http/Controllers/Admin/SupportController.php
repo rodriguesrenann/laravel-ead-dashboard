@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\Support\SupportEnum;
 use Illuminate\Http\Request;
 use App\Services\SupportService;
 use App\Http\Controllers\Controller;
@@ -18,9 +19,10 @@ class SupportController extends Controller
 
     public function index()
     {
-        $supports = $this->supportService->getAllPendentSupportsPaginated();
+        $supports = $this->supportService->getFilteredSupports(request('status', ''));
+        $statusOptions = SupportEnum::cases();
 
-        return view('admin.supports.index', compact('supports'));
+        return view('admin.supports.index', compact('supports', 'statusOptions'));
     }
 
     public function show(string $supportId)
